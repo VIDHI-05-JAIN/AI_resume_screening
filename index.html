@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Resume Screening System</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>AI Resume Screening System</h1>
+
+    <div class="section">
+      <h2>Candidate Portal</h2>
+      <form id="uploadForm" enctype="multipart/form-data">
+        <label for="candidateName">Name:</label>
+        <input type="text" id="candidateName" name="candidateName" required />
+
+        <label for="resumeFile">Upload Resume (PDF/DOCX):</label>
+        <input type="file" id="resumeFile" name="resumeFile" accept=".pdf,.doc,.docx" required />
+
+        <button type="submit">Submit Resume</button>
+      </form>
+    </div>
+
+    <hr />
+
+    <div class="section">
+      <h2>HR Screening Result</h2>
+      <form id="screeningCheckForm">
+        <label for="candidateId">Candidate ID:</label>
+        <input type="number" id="candidateId" name="candidateId" required />
+        <button type="submit">View Result</button>
+      </form>
+
+      <div id="resultDisplay" style="display:none; margin-top: 20px;">
+        <h3>Screening Details</h3>
+        <p><strong>Matched Skills:</strong> <span id="matchedSkills">-</span></p>
+        <p><strong>Relevance %:</strong> <span id="relevance">-</span></p>
+        <p><strong>Score:</strong> <span id="score">-</span></p>
+        <p><strong>Status:</strong> <span id="status">-</span></p>
+        <p><strong>Remark:</strong> <span id="remark">-</span></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("screeningCheckForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      // Demo data based on your DB
+      const demoData = {
+        3: { skills: "Java, SQL", relevance: "85%", score: "8.5", status: "Shortlisted", remark: "Strong match" },
+        4: { skills: "Python, Data Science", relevance: "90%", score: "9.0", status: "Shortlisted", remark: "Highly relevant" },
+        5: { skills: "Agile, Project Management", relevance: "70%", score: "7.0", status: "Rejected", remark: "Not enough experience" },
+        7: { skills: "React, JavaScript", relevance: "80%", score: "8.0", status: "Shortlisted", remark: "Good frontend skills" },
+        8: { skills: "Node.js, AWS", relevance: "60%", score: "6.0", status: "Rejected", remark: "Lacks backend depth" }
+      };
+
+      const id = document.getElementById("candidateId").value;
+      const result = demoData[id];
+
+      if (result) {
+        document.getElementById("matchedSkills").innerText = result.skills;
+        document.getElementById("relevance").innerText = result.relevance;
+        document.getElementById("score").innerText = result.score;
+        document.getElementById("status").innerText = result.status;
+        document.getElementById("remark").innerText = result.remark;
+        document.getElementById("resultDisplay").style.display = "block";
+      } else {
+        alert("Candidate ID not found in demo data.");
+      }
+    });
+  </script>
+</body>
+</html>
